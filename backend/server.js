@@ -2,13 +2,21 @@ import express from 'express';
 import dotenv from 'dotenv'
 import { createClient } from '@supabase/supabase-js';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config()
 
 const app = express();
-const port = 2020;
+const port = 2121;
 
-//app.use(cors());
+app.use(cors());
+
+const __filename = fileURLToPath(import.meta.url);  // Get the file path of the current module
+const __dirname = path.dirname(__filename);        
+
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 
